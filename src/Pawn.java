@@ -21,8 +21,8 @@ public class Pawn extends ChessPiece {
         // I generate the points using https://github.com/ColdMacaroni/draw-poly/ :^)
         polygons.add(
                 new Polygon(
-                        new double[]{0.188, 0.862, 0.662, 0.82, 0.818, 0.69, 0.314, 0.204, 0.21, 0.368},
-                        new double[]{0.772, 0.778, 0.382, 0.262, 0.098, 0.022, 0.02, 0.134, 0.268, 0.364},
+                        new double[]{0.256, 0.772, 0.62, 0.722, 0.726, 0.658, 0.382, 0.33, 0.332, 0.44},
+                        new double[]{0.752, 0.756, 0.466, 0.4, 0.306, 0.228, 0.224, 0.296, 0.378, 0.444},
                         10,
                         outline,
                         fill,
@@ -33,8 +33,8 @@ public class Pawn extends ChessPiece {
 
         polygons.add(
                 new Polygon(
-                        new double[]{0.05, 0.93, 0.928, 0.048},
-                        new double[]{0.96, 0.96, 0.84, 0.842},
+                        new double[]{0.134, 0.128, 0.872, 0.874},
+                        new double[]{0.8, 0.928, 0.926, 0.804},
                         4,
                         outline,
                         fill,
