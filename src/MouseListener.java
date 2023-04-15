@@ -14,6 +14,7 @@ public class MouseListener {
         if (action.equals("pressed")){
             this.selectedPiece = currentBoard.mouseSquare(x, y); // finds the piece at the current point (might not work idk)
             System.out.println("current piece is " + selectedPiece);
+            //might need fixing
         }
     }
 }
