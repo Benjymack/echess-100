@@ -1,0 +1,7 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+discord.xml
+
+# ecs100.jar in different paths
+/libraries/*
