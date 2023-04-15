@@ -29,3 +29,4 @@ public abstract class ChessPiece {
         size = new_size;
     }
 }
+
