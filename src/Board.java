@@ -10,10 +10,13 @@ public class Board {
     static double boardWidth = 400;
     public Board() {
         this.board = new Square[numRows][numRows];
+        double squareSize = boardWidth/numRows;
+        ChessPiece.setSize(squareSize);
+
         for (int y = 0; y<numRows; y++) {
             for (int x = 0; x<numRows; x++) {
                 Color squareColor = (y % 2 == x % 2) ? lightSquareColor : darkSquareColor;
-                this.board[y][x] = new Square(Optional.empty(), squareColor, x, y, boardWidth/numRows);
+                this.board[y][x] = new Square(Optional.empty(), squareColor, x, y, squareSize);
             }
         }
         boardFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");

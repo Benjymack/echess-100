@@ -56,12 +56,14 @@ public class ChessPiece {
         this.polygons = polygons;
     }
 
-    public void setSize(double new_size){
+    public static void setSize(double new_size){
         if (new_size < 0)
-            size = new_size;
-        else
             // Should I throw?
             System.err.println("Invalid size: " + new_size);
+
+        else
+         size = new_size;
+
     }
 }
 
