@@ -14,7 +14,6 @@ public abstract class ChessPiece {
     // Should be set by the subclass
     private double[][][] points;
 
-
     ChessPiece(int x, int y, ChessColor color) {
         this.color = color;
 
@@ -24,9 +23,12 @@ public abstract class ChessPiece {
 
     public abstract void draw();
 
-    public void setSize(double new_size) {
-        // TODO: Checks
-        size = new_size;
+    public void setSize(double new_size){
+        if (new_size < 0)
+            size = new_size;
+        else
+            // Should I throw?
+            System.err.println("Invalid size: " + new_size);
     }
 }
 
