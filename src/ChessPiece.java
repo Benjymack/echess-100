@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.ArrayList;
 
 public class ChessPiece {
@@ -5,6 +6,8 @@ public class ChessPiece {
     private final ChessColor color;
     private int x;
     private int y;
+    protected final Color outline;
+    protected final Color fill;
 
     // Should be set by the subclass
     private ArrayList<Polygon> polygons;
@@ -14,6 +17,14 @@ public class ChessPiece {
 
         this.y = y;
         this.x = x;
+
+        if (color.equals(ChessColor.BLACK)) {
+            outline = Color.white;
+            fill = Color.black;
+        } else {
+            outline = Color.black;
+            fill = Color.white;
+        }
     }
 
     public void draw() {

@@ -7,18 +7,6 @@ public class Bishop extends ChessPiece {
         ArrayList<Polygon> polygons = new ArrayList<>();
 
 
-        // TODO: There's gotta be a DRY way of setting colors
-        Color outline;
-        Color fill;
-
-        if (color.equals(ChessColor.BLACK)) {
-            outline = Color.white;
-            fill = Color.black;
-        } else {
-            outline = Color.black;
-            fill = Color.white;
-        }
-
         polygons.add(
                 new Polygon(
                         new double[]{0.308, 0.67, 0.578, 0.636, 0.552, 0.572, 0.42, 0.468, 0.392, 0.456, 0.436, 0.372, 0.344, 0.42},
