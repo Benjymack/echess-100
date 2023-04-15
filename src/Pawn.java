@@ -6,6 +6,7 @@ public class Pawn extends ChessPiece {
         super(x, y, color);
         ArrayList<Polygon> polygons = new ArrayList<>();
 
+        // TODO: There's gotta be a DRY way of setting colors
         Color outline;
         Color fill;
 
