@@ -5,5 +5,11 @@ public class Main {
         System.out.println("Hello world!");
         Board board = new Board();
         board.draw();
+        MouseListener mouse = new MouseListener();
+        mouse.mouseInit(board);
+        UI.setMouseListener(mouse::mousePosition);
     }
+
+
+
 }
