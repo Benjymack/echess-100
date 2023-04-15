@@ -1,18 +1,13 @@
-import ecs100.*;
+import java.util.ArrayList;
 
-// Not sure if i'm doing abstract right
-public abstract class ChessPiece {
+public class ChessPiece {
     private static double size = 20;
     private final ChessColor color;
     private int x;
     private int y;
 
-    // Dimensions:
-    //  1: Groups
-    //  2: Points
-    //  3: X,Y
     // Should be set by the subclass
-    private double[][][] points;
+    private ArrayList<Polygon> polygons;
 
     ChessPiece(int x, int y, ChessColor color) {
         this.color = color;
@@ -21,7 +16,45 @@ public abstract class ChessPiece {
         this.x = x;
     }
 
-    public abstract void draw();
+    public void draw() {
+        for (Polygon poly : polygons) {
+            poly.draw();
+        }
+    }
+
+    public static double getSize() {
+        return size;
+    }
+
+    public ChessColor getColor() {
+        return color;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    /**
+     * Updates `this.points` using x, y, size and norm_points.
+     * Assumes that size is the size of each coordinate.
+     * */
+    public void updatePoints() {
+        for (Polygon polygon: polygons) {
+            polygon.updatePoints(x * size, y * size, size);
+        }
+    }
+
+    public ArrayList<Polygon> getPolygons() {
+        return polygons;
+    }
+
+    public void setPolygons(ArrayList<Polygon> polygons) {
+        this.polygons = polygons;
+    }
 
     public void setSize(double new_size){
         if (new_size < 0)
