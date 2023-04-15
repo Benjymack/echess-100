@@ -17,6 +17,10 @@ public class ChessPiece {
     }
 
     public void draw() {
+        if (polygons == null) {
+            System.err.printf("`polygons` is null on %s %s\n", getColor().name().toLowerCase(), getClass().getName());
+            return;
+        }
         for (Polygon poly : polygons) {
             poly.draw();
         }
