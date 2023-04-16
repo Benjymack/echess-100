@@ -5,6 +5,7 @@ import java.util.Optional;
 public class MouseListener {
     private Optional<ChessPiece> selectedPiece = Optional.empty();
     private Board currentBoard;
+    private boolean Highlighted = false;
 
     public void mouseInit(Board currentBoard){
         this.currentBoard = currentBoard;
@@ -20,13 +21,16 @@ public class MouseListener {
     public void mousePosition(String action, double x, double y) {
         // Only get piece when clicked
         if (action.equals("pressed")){
-            // Unhighlight previously selected piece
-            selectedPiece.ifPresent(chessPiece -> chessPiece.setHighlighted(false));
-
-            selectedPiece = currentBoard.getChessPieceFromMouseSquare(x, y);
-
-            // Highlight currently selected piece
-            selectedPiece.ifPresent(chessPiece -> chessPiece.setHighlighted(true));
+            if(selectedPiece.isPresent() && selectedPiece.get().getHighlighted() && currentBoard.getChessPieceFromMouseSquare(x, y).equals(Optional.empty())) {
+                System.out.println("this would make it move");
+            }
+            else {
+                // Unhighlight previously selected piece
+                selectedPiece.ifPresent(chessPiece -> chessPiece.setHighlighted(false));
+                selectedPiece = currentBoard.getChessPieceFromMouseSquare(x, y);
+                // Highlight currently selected piece
+                selectedPiece.ifPresent(chessPiece -> chessPiece.setHighlighted(true));
+            }
         }
     }
 }
