@@ -14,7 +14,7 @@ public class ChessPiece {
 
     protected Color outline;
     protected final Color fill;
-    protected boolean highlighted = false;
+    private boolean highlighted = false;
 
     public char asciiCharacter;
     // Should be set by the subclass
