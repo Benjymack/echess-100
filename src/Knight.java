@@ -5,7 +5,7 @@ public class Knight extends ChessPiece {
     Knight(int x, int y, ChessColor color) {
         super(x, y, color);
         ArrayList<Polygon> polygons = new ArrayList<>();
-
+        this.asciiCharacter = (this.color == ChessColor.BLACK) ? '♞' : '♘';
         polygons.add(
                 new Polygon(
                         new double[]{0.12, 0.13, 0.85, 0.882},

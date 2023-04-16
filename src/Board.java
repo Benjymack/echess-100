@@ -6,19 +6,20 @@ public class Board {
     static Color darkSquareColor = new Color(119, 149, 86);
     static Color lightSquareColor = new Color(235, 236, 208);
     public Square[][] board;
-    static int numRows = 8;
-    static double boardWidth = 400;
+    static int NUM_ROWS = 8;
+    static double BOARD_WIDTH = 400;
+    static double SQUARE_SIZE = BOARD_WIDTH / NUM_ROWS;
 
-    static double squareSize = boardWidth/numRows;
+    public Optional<ChessPiece> selectedPiece = Optional.empty();
+
     public Board() {
-        this.board = new Square[numRows][numRows];
-        double squareSize = boardWidth/numRows;
-        ChessPiece.setSize(squareSize);
+        this.board = new Square[NUM_ROWS][NUM_ROWS];
+        ChessPiece.setSize(SQUARE_SIZE);
 
-        for (int y = 0; y<numRows; y++) {
-            for (int x = 0; x<numRows; x++) {
+        for (int y = 0; y< NUM_ROWS; y++) {
+            for (int x = 0; x< NUM_ROWS; x++) {
                 Color squareColor = (y % 2 == x % 2) ? lightSquareColor : darkSquareColor;
-                this.board[y][x] = new Square(Optional.empty(), squareColor, x, y, squareSize);
+                this.board[y][x] = new Square(Optional.empty(), squareColor, x, y, SQUARE_SIZE);
             }
         }
         boardFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
@@ -41,34 +42,41 @@ public class Board {
             rank_num++;
         }
     }
-    public ChessPiece charToChessPiece(char character, int x, int y) {
-        ChessColor pieceColor = (Character.isUpperCase(character)) ? ChessColor.WHITE : ChessColor.BLACK;
-        HashMap<Character, ChessPiece> characterChessPieceHashMap = new HashMap<Character, ChessPiece>();
-        characterChessPieceHashMap.put('p', new Pawn(x, y, pieceColor));
-        characterChessPieceHashMap.put('r', new Rook(x, y, pieceColor));
-        characterChessPieceHashMap.put('n', new Knight(x, y, pieceColor));
-        characterChessPieceHashMap.put('b', new Bishop(x, y, pieceColor));
-        characterChessPieceHashMap.put('q', new Queen(x, y, pieceColor));
-        characterChessPieceHashMap.put('k', new King(x, y, pieceColor));
 
-        return characterChessPieceHashMap.get(Character.toLowerCase(character));
+    public ChessPiece charToChessPiece(char character, int x, int y) throws IllegalStateException {
+        ChessColor pieceColor = (Character.isUpperCase(character)) ? ChessColor.WHITE : ChessColor.BLACK;
+        return switch (Character.toLowerCase(character)) {
+            case 'p' -> new Pawn(x, y, pieceColor);
+            case 'r' -> new Rook(x, y, pieceColor);
+            case 'n' -> new Knight(x, y, pieceColor);
+            case 'b' -> new Bishop(x, y, pieceColor);
+            case 'q' -> new Queen(x, y, pieceColor);
+            case 'k' -> new King(x, y, pieceColor);
+            default -> throw new IllegalStateException(character + ": is not a valid chess piece");
+        };
+
     }
+    /** Draw the board to the screen by drawing all the squares*/
     public void draw() {
-        for (int y = 0; y<numRows; y++) {
-            for (int x = 0; x<numRows; x++) {
-                this.board[y][x].draw();
+        for (int y = 0; y< NUM_ROWS; y++) {
+            for (int x = 0; x< NUM_ROWS; x++) {
+                this.board[y][x].draw(this.selectedPiece);
             }
         }
     }
 
-    public Optional<ChessPiece> mouseSquare(double mouseX, double mouseY){ //method to find the chess piece at the current mouse pos
-        for (int sqr_row = 0; sqr_row < numRows-1; ++sqr_row){
-            for (int sqr_col = 0; sqr_col < numRows-1; ++sqr_row){
-                if ((mouseY >= sqr_row * squareSize && mouseY <= sqr_row * squareSize+squareSize) && (mouseX >= sqr_col * squareSize && mouseX <= sqr_col * squareSize+squareSize)){ // checks mouse in each square, probably slow, will fix
-
-                    return this.board[sqr_row][sqr_col].piece; // returns the piece
-                }
-            }
+    /**
+     * Returns the piece that the user clicks on.
+     * @param mouseX The x coordinate of the mouse.
+     * @param mouseY The y coordinate of the mouse.
+     * @return An optional which contains the piece if the square the user clicked on had one
+     */
+    public Optional<ChessPiece> getChessPieceFromMouseSquare(double mouseX, double mouseY){ //method to find the chess piece at the current mouse pos
+        int x = (int) Math.floor(mouseX / SQUARE_SIZE);
+        int y = (int) Math.floor(mouseY / SQUARE_SIZE);
+        System.out.println(x+", "+y);
+        if (x < NUM_ROWS && y < NUM_ROWS) {
+            return board[y][x].piece;
         }
         return Optional.empty();
     }
@@ -89,10 +97,22 @@ class Square {
         this.squareSize = squareSize;
     }
 
-    public void draw() {
+    public void draw(Optional<ChessPiece> highlightedPiece) {
         UI.setColor(color);
         UI.fillRect(x*squareSize, y*squareSize, squareSize, squareSize);
-        piece.ifPresent(ChessPiece::draw);
+
+        if (piece.isPresent()) {
+            ChessPiece currentPiece = piece.get();
+            if (piece == highlightedPiece) {
+                currentPiece.draw(Color.YELLOW);
+            } else {
+                currentPiece.draw();
+            }
+//            System.out.print(" " + currentPiece.asciiCharacter);
+        }
+//        else {
+//            System.out.print(" " + ((x%2==y%2)? '⬜' : '⬛'));
+//        }
     }
 
 }

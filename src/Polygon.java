@@ -57,5 +57,14 @@ public class Polygon {
         UI.setColor(outline);
         UI.drawPolygon(pointsX, pointsY, numPoints);
     }
+    public void draw(Color outline) {
+        // Fill first so the outline is nice and clear
+        UI.setColor(fill);
+        UI.fillPolygon(pointsX, pointsY, numPoints);
+
+        // Draw the outline
+        UI.setColor(outline);
+        UI.drawPolygon(pointsX, pointsY, numPoints);
+    }
 
 }

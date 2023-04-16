@@ -2,8 +2,9 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 public class Pawn extends ChessPiece {
-    Pawn(int x, int y, ChessColor color) {
+    public Pawn(int x, int y, ChessColor color) {
         super(x, y, color);
+        this.asciiCharacter = (this.color == ChessColor.BLACK) ? '♟' : '♙';
         ArrayList<Polygon> polygons = new ArrayList<>();
 
 

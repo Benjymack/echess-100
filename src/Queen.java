@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class Queen extends ChessPiece {
     Queen(int x, int y, ChessColor color) {
         super(x, y, color);
-
+        this.asciiCharacter = (this.color == ChessColor.BLACK) ? '♛' : '♕';
         ArrayList<Polygon> polygons = new ArrayList<>();
 
 

@@ -3,12 +3,13 @@ import java.util.ArrayList;
 
 public class ChessPiece {
     private static double size = 20;
-    private final ChessColor color;
+    protected final ChessColor color;
     private int x;
     private int y;
-    protected final Color outline;
+    protected Color outline;
     protected final Color fill;
 
+    public char asciiCharacter;
     // Should be set by the subclass
     private ArrayList<Polygon> polygons;
 
@@ -34,6 +35,16 @@ public class ChessPiece {
         }
         for (Polygon poly : polygons) {
             poly.draw();
+        }
+    }
+    public void draw(Color outlineColor) {
+//        TODO! This isn't very dry...
+        if (polygons == null) {
+            System.err.printf("`polygons` is null on %s %s\n", getColor().name().toLowerCase(), getClass().getName());
+            return;
+        }
+        for (Polygon poly : polygons) {
+            poly.draw(outlineColor);
         }
     }
 

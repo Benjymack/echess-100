@@ -5,7 +5,7 @@ public class Rook extends ChessPiece {
     Rook(int x, int y, ChessColor color) {
         super(x, y, color);
         ArrayList<Polygon> polygons = new ArrayList<>();
-
+        this.asciiCharacter = (this.color == ChessColor.BLACK) ? '♜' : '♖';
         polygons.add(
                 new Polygon(
                         new double[]{0.116, 0.866, 0.866, 0.122},

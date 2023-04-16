@@ -5,7 +5,7 @@ public class King extends ChessPiece {
     King(int x, int y, ChessColor color) {
         super(x, y, color);
         ArrayList<Polygon> polygons = new ArrayList<>();
-
+        this.asciiCharacter = (this.color == ChessColor.BLACK) ? '♚' : '♔';
 
         polygons.add(
                 new Polygon(

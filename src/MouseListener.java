@@ -12,9 +12,9 @@ public class MouseListener {
 
     public void mousePosition(String action, double x, double y){
         if (action.equals("pressed")){
-            this.selectedPiece = currentBoard.mouseSquare(x, y); // finds the piece at the current point (might not work idk)
+            this.selectedPiece = currentBoard.getChessPieceFromMouseSquare(x, y); // finds the piece at the current point (might not work idk)
+            currentBoard.selectedPiece = this.selectedPiece;
             System.out.println("current piece is " + selectedPiece);
-            //might need fixing
         }
     }
 }
