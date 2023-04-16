@@ -36,7 +36,6 @@ public class Board {
      * @param FEN A string showing the board position in Forsyth–Edwards Notation
      */
     public void boardFromFEN(String FEN) {
-//        TODO! Check if this works
         int rank_num = 0;
         int file_num = 0;
         for (String rank : FEN.split("/")) {
