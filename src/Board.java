@@ -137,7 +137,7 @@ class Square {
         if (piece.isPresent()) {
             ChessPiece currentPiece = piece.get();
             if (piece == highlightedPiece) {
-                currentPiece.draw(Color.YELLOW);
+                currentPiece.draw(Color.decode("#ffc90e"));
             } else {
                 currentPiece.draw();
             }
