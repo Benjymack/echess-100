@@ -6,9 +6,10 @@ public class Board {
     static Color darkSquareColor = new Color(119, 149, 86);
     static Color lightSquareColor = new Color(235, 236, 208);
     public Square[][] board;
-    static int NUM_ROWS = 8;
-    static double BOARD_WIDTH = 400;
-    static double SQUARE_SIZE = BOARD_WIDTH / NUM_ROWS;
+
+    private static final int NUM_ROWS = 8;
+    private static final double BOARD_WIDTH = 400;
+    private static final double SQUARE_SIZE = BOARD_WIDTH / NUM_ROWS;
 
     public Optional<ChessPiece> selectedPiece = Optional.empty();
 
