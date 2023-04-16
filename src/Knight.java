@@ -6,23 +6,12 @@ public class Knight extends ChessPiece {
         super(x, y, color);
         ArrayList<Polygon> polygons = new ArrayList<>();
 
-        Color outline;
-        Color fill;
-
-        if (color.equals(ChessColor.BLACK)) {
-            outline = Color.white;
-            fill = Color.black;
-        } else {
-            outline = Color.black;
-            fill = Color.white;
-        }
-
         polygons.add(
                 new Polygon(
                         new double[]{0.12, 0.13, 0.85, 0.882},
                         new double[]{0.852, 0.948, 0.948, 0.856},
                         4,
-                        outline,
+                        this.outline,
                         fill,
                         getX() * getSize(),
                         getY() * getSize(),

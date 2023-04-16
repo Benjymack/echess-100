@@ -6,19 +6,6 @@ public class Rook extends ChessPiece {
         super(x, y, color);
         ArrayList<Polygon> polygons = new ArrayList<>();
 
-
-        // TODO: There's gotta be a DRY way of setting colors
-        Color outline;
-        Color fill;
-
-        if (color.equals(ChessColor.BLACK)) {
-            outline = Color.white;
-            fill = Color.black;
-        } else {
-            outline = Color.black;
-            fill = Color.white;
-        }
-
         polygons.add(
                 new Polygon(
                         new double[]{0.116, 0.866, 0.866, 0.122},
