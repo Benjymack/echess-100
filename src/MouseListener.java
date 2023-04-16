@@ -3,7 +3,7 @@ import ecs100.UI;
 import java.util.Optional;
 
 public class MouseListener {
-    private Optional<ChessPiece> selectedPiece;
+    private Optional<ChessPiece> selectedPiece = Optional.empty();
     private Board currentBoard;
 
     public void mouseInit(Board currentBoard){
@@ -20,10 +20,13 @@ public class MouseListener {
     public void mousePosition(String action, double x, double y) {
         // Only get piece when clicked
         if (action.equals("pressed")){
-            this.selectedPiece = currentBoard.getChessPieceFromMouseSquare(x, y);
-            currentBoard.selectedPiece = this.selectedPiece;
+            // Unhighlight previously selected piece
+            selectedPiece.ifPresent(chessPiece -> chessPiece.setHighlighted(false));
 
-            System.out.println("current piece is " + selectedPiece);
+            selectedPiece = currentBoard.getChessPieceFromMouseSquare(x, y);
+
+            // Highlight currently selected piece
+            selectedPiece.ifPresent(chessPiece -> chessPiece.setHighlighted(true));
         }
     }
 }

@@ -6,8 +6,15 @@ public class ChessPiece {
     protected final ChessColor color;
     private int x;
     private int y;
+
+    // These may be used as outlines or fills depending on ChessColor
+    private static final Color DARK_COLOR = Color.black;
+    private static final Color LIGHT_COLOR = Color.white;
+    private static final Color HIGHLIGHT_COLOR = Color.decode("#ffc90e");
+
     protected Color outline;
     protected final Color fill;
+    protected boolean highlighted = false;
 
     public char asciiCharacter;
     // Should be set by the subclass
@@ -21,11 +28,11 @@ public class ChessPiece {
 
         // Set outline and fill depending on piece colour
         if (color.equals(ChessColor.BLACK)) {
-            outline = Color.white;
-            fill = Color.black;
+            outline = LIGHT_COLOR;
+            fill = DARK_COLOR;
         } else {
-            outline = Color.black;
-            fill = Color.white;
+            outline = DARK_COLOR;
+            fill = LIGHT_COLOR;
         }
     }
 
@@ -40,22 +47,6 @@ public class ChessPiece {
         }
         for (Polygon poly : polygons) {
             poly.draw();
-        }
-    }
-
-    /**
-     * Draws the polygon with the given outline colour.
-     * WET code, TODO!
-     * @param outlineColor Replaces outline colour
-     */
-    public void draw(Color outlineColor) {
-//        TODO! This isn't very dry...
-        if (polygons == null) {
-            System.err.printf("`polygons` is null on %s %s\n", getColor().name().toLowerCase(), getClass().getName());
-            return;
-        }
-        for (Polygon poly : polygons) {
-            poly.draw(outlineColor);
         }
     }
 
@@ -85,12 +76,29 @@ public class ChessPiece {
         }
     }
 
+    /**
+     * Changes the outline of polygons to `HIGHLIGHT_COLOR`
+     * @param highlighted Whether to highlight or not
+     */
+    public void setHighlighted(boolean highlighted) {
+        this.highlighted = highlighted;
+
+        // Change the polygons to use HIGHLIGHT_COLOR
+        for (Polygon polygon: polygons) {
+            polygon.outline = (highlighted) ? HIGHLIGHT_COLOR : outline;
+        }
+    }
+
     public ArrayList<Polygon> getPolygons() {
         return polygons;
     }
 
     public void setPolygons(ArrayList<Polygon> polygons) {
         this.polygons = polygons;
+    }
+
+    public boolean getHighlighted() {
+        return highlighted;
     }
 
     /**
@@ -105,7 +113,6 @@ public class ChessPiece {
 
         else
          size = new_size;
-
     }
 }
 

@@ -83,7 +83,7 @@ public class Board {
         for (int y = 0; y< NUM_ROWS; y++) {
             for (int x = 0; x< NUM_ROWS; x++) {
                 // We pass the current selected piece so it's highlighted
-                this.board[y][x].draw(this.selectedPiece);
+                this.board[y][x].draw();
             }
         }
     }
@@ -126,26 +126,13 @@ class Square {
 
     /**
      * Draws this square. Additionally, draws piece if present.
-     * @param highlightedPiece Highlight this square's piece if it's the same as this one
      */
-    public void draw(Optional<ChessPiece> highlightedPiece) {
+    public void draw() {
         // Draw square
         UI.setColor(color);
         UI.fillRect(x * squareSize, y * squareSize, squareSize, squareSize);
 
         // Draw piece, highlighted if it matches arg
-        if (piece.isPresent()) {
-            ChessPiece currentPiece = piece.get();
-            if (piece == highlightedPiece) {
-                currentPiece.draw(Color.decode("#ffc90e"));
-            } else {
-                currentPiece.draw();
-            }
-//            System.out.print(" " + currentPiece.asciiCharacter);
-        }
-//        else {
-//            System.out.print(" " + ((x%2==y%2)? '⬜' : '⬛'));
-//        }
+        piece.ifPresent(ChessPiece::draw);
     }
-
 }
