@@ -9,7 +9,4 @@ public class Main {
         mouse.mouseInit(board);
         UI.setMouseListener(mouse::mousePosition);
     }
-
-
-
 }
