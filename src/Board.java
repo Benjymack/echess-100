@@ -62,17 +62,14 @@ public class Board {
     }
 
     public Optional<ChessPiece> mouseSquare(double mouseX, double mouseY){ //method to find the chess piece at the current mouse pos
-        for (int sqr_row = 0; sqr_row < numRows-1; ++sqr_row){
-            for (int sqr_col = 0; sqr_col < numRows-1; ++sqr_row){
-                if ((mouseY >= sqr_row * squareSize && mouseY <= sqr_row * squareSize+squareSize) && (mouseX >= sqr_col * squareSize && mouseX <= sqr_col * squareSize+squareSize)){ // checks mouse in each square, probably slow, will fix
+        int x = (int)(mouseX / squareSize);
+        int y = (int)(mouseY / squareSize);
 
-                    return this.board[sqr_row][sqr_col].piece; // returns the piece
-                }
-            }
+        if (x < 0 || x >= numRows || y < 0 || y >= numRows) {
+            return Optional.empty();
         }
-        return Optional.empty();
+        return this.board[y][x].piece;
     }
-
 }
 
 class Square {
