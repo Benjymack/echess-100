@@ -19,6 +19,7 @@ public class ChessPiece {
         this.y = y;
         this.x = x;
 
+        // Set outline and fill depending on piece colour
         if (color.equals(ChessColor.BLACK)) {
             outline = Color.white;
             fill = Color.black;
@@ -28,6 +29,10 @@ public class ChessPiece {
         }
     }
 
+    /**
+     * Draws each of the piece's polygons.
+     * It will complain if polygons is null, but won't throw.
+     */
     public void draw() {
         if (polygons == null) {
             System.err.printf("`polygons` is null on %s %s\n", getColor().name().toLowerCase(), getClass().getName());
@@ -37,6 +42,12 @@ public class ChessPiece {
             poly.draw();
         }
     }
+
+    /**
+     * Draws the polygon with the given outline colour.
+     * WET code, TODO!
+     * @param outlineColor Replaces outline colour
+     */
     public void draw(Color outlineColor) {
 //        TODO! This isn't very dry...
         if (polygons == null) {
@@ -82,6 +93,11 @@ public class ChessPiece {
         this.polygons = polygons;
     }
 
+    /**
+     * Sets piece size, not allowing values below 0.
+     * It will complain if new_size < 0, but won't throw.
+     * @param new_size The new size
+     */
     public static void setSize(double new_size){
         if (new_size < 0)
             // Should I throw?

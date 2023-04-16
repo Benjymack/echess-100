@@ -30,7 +30,7 @@ public class Polygon {
     }
 
     /**
-     * Computers the normalised points into points that can be drawn at any given position.
+     * Computes the normalised points into points that can be drawn at any given position.
      * This method should be called whenever the poly is meant to be drawn at a different position.
      * The size parameter is because,,, it's normalised 0 <= x <= 1.
      */
@@ -48,6 +48,9 @@ public class Polygon {
         this.pointsY = newPointsY;
     }
 
+    /**
+     * Fills a polygon and then draws a polygon outline according to `pointsX` and `pointsY`
+     */
     public void draw() {
         // Fill first so the outline is nice and clear
         UI.setColor(fill);
@@ -57,6 +60,10 @@ public class Polygon {
         UI.setColor(outline);
         UI.drawPolygon(pointsX, pointsY, numPoints);
     }
+
+    /**
+     * Same as `draw()`, but with the given outline colour
+     */
     public void draw(Color outline) {
         // Fill first so the outline is nice and clear
         UI.setColor(fill);

@@ -8,15 +8,21 @@ public class Main {
     public static void main(String[] args) {
         // Magic Here
         System.out.println("Hello world!");
+
+        // All the pieces and drawing logic goes here
         Board board = new Board();
+
+        // For knowing when a piece is clicked
         MouseListener mouse = new MouseListener();
         mouse.mouseInit(board);
         UI.setMouseListener(mouse::mousePosition);
 
+        // Set up for main game loop
         final double FRAMES_PER_SECOND = 30;
         final long MILLIES_BETWEEN_FRAMES = Math.round(1000. / FRAMES_PER_SECOND);
         double START_TIME = System.currentTimeMillis();
         final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+
         executorService.scheduleAtFixedRate(
                 () -> gameTick(board),
                 0,
@@ -25,6 +31,10 @@ public class Main {
         );
     }
 
+    /**
+     * The main game loop
+     * @param board The board used for the game
+     */
     static void gameTick(Board board) {
         board.draw();
     }
