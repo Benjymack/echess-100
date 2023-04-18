@@ -21,7 +21,7 @@ public class MouseListener {
     public void mousePosition(String action, double x, double y) {
         // Only get piece when clicked
         if (action.equals("pressed")){
-            if(selectedPiece.isPresent() && selectedPiece.get().getHighlighted() && currentBoard.getChessPieceFromMouseSquare(x, y).equals(Optional.empty())) {
+            if(selectedPiece.isPresent() && selectedPiece.get().getHighlighted() && currentBoard.getChessPieceFromMouseSquare(x, y).isEmpty()) {
                 System.out.println("this would make it move");
             }
             else {
