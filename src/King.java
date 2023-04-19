@@ -1,7 +1,10 @@
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class King extends ChessPiece {
+    public boolean inCheck = false;
+    private final Color CHECK_COLOR = Color.RED;
     King(int x, int y, ChessColor color) {
         super(x, y, color);
         ArrayList<Polygon> polygons = new ArrayList<>();
@@ -32,4 +35,19 @@ public class King extends ChessPiece {
         );
         setPolygons(polygons);
     }
+
+    public void draw() {
+        if (polygons == null) {
+            System.err.printf("`polygons` is null on %s %s\n", getColor().name().toLowerCase(), getClass().getName());
+            return;
+        }
+        for (Polygon polygon: polygons) {
+            polygon.outline = (inCheck && !getHighlighted()) ? CHECK_COLOR : polygon.outline;
+        }
+        for (Polygon poly : polygons) {
+            poly.draw();
+        }
+    }
+
+
 }

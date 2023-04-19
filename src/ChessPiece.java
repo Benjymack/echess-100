@@ -18,7 +18,7 @@ public class ChessPiece {
 
     public char asciiCharacter;
     // Should be set by the subclass
-    private ArrayList<Polygon> polygons;
+    protected ArrayList<Polygon> polygons;
 
     ChessPiece(int x, int y, ChessColor color) {
         this.color = color;

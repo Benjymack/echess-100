@@ -2,12 +2,13 @@ import ecs100.UI;
 import java.util.HashMap;
 import java.awt.*;
 import java.util.Optional;
+
 public class Board {
     static Color darkSquareColor = new Color(119, 149, 86);
     static Color lightSquareColor = new Color(235, 236, 208);
     public Square[][] board;
 
-    private static final int NUM_ROWS = 8;
+    public static final int NUM_ROWS = 8;
     private static final double BOARD_WIDTH = 400;
     private static final double SQUARE_SIZE = BOARD_WIDTH / NUM_ROWS;
 
@@ -38,6 +39,7 @@ public class Board {
     public void boardFromFEN(String FEN) {
         int rank_num = 0;
         int file_num = 0;
+
         for (String rank : FEN.split("/")) {
             file_num = 0;
             for (Character info : rank.toCharArray()) {
@@ -99,13 +101,119 @@ public class Board {
         int x = (int) Math.floor(mouseX / SQUARE_SIZE);
         int y = (int) Math.floor(mouseY / SQUARE_SIZE);
 
-        System.out.println(x+", "+y);
+        return getChessPiece(x, y);
+    }
 
+    public Optional<ChessPiece> getChessPiece(int x, int y) {
         // Return piece at that position, or empty Optional if outside board.
         if (x < NUM_ROWS && y < NUM_ROWS) {
             return board[y][x].piece;
         }
         return Optional.empty();
+    }
+
+    public boolean inCheck(ChessPiece king) {
+        // TODO! should this be moved to a method of the board class?
+        if (straightCheck(king)) return true;
+        if (diagonalCheck(king)) return true;
+        if (knightCheck(king)) return true;
+        return false;
+    }
+    boolean straightCheck(ChessPiece king) {
+        return
+            // Look Up
+            lookFromKingY(-1, king) ||
+            // Look Down
+            lookFromKingY(1, king) ||
+            // Look Left
+            lookFromKingX(-1, king) ||
+            // Look Right
+            lookFromKingX(1, king);
+    }
+
+    boolean lookFromKingX(int step, ChessPiece king) {
+        for (int lookX = king.getX(); lookX > 0 && lookX < Board.NUM_ROWS; lookX += step) {
+            Optional<ChessPiece> piece = getChessPiece(lookX, king.getY());
+            // Ignore blank squares
+            if (piece.isEmpty()) continue;
+
+            ChessPiece chessPiece = piece.get();
+
+            // Your own pieces block checks
+            if (chessPiece.color == king.color) return false;
+
+            // If the piece is a rook or queen then the king is in check
+            return (chessPiece instanceof Rook || chessPiece instanceof Queen);
+        }
+        return false;
+    }
+    boolean lookFromKingY(int step, ChessPiece king) {
+        for (int lookY = king.getY(); lookY > 0 && lookY < Board.NUM_ROWS; lookY += step) {
+            Optional<ChessPiece> piece = getChessPiece(king.getX(), lookY);
+            // Ignore blank squares
+            if (piece.isEmpty()) continue;
+
+            ChessPiece chessPiece = piece.get();
+
+            // Your own pieces block checks
+            if (chessPiece.color == king.color) return false;
+
+            // If the piece is a rook or queen then the king is in check
+            return (chessPiece instanceof Rook || chessPiece instanceof Queen);
+        }
+        return false;
+    }
+
+    boolean diagonalCheck(ChessPiece king) {
+        for (int yStep : new int[]{-1, 1}) {
+            for (int xStep : new int[]{-1, 1}) {
+                // If the king is checked on any of the diagonals it is in check
+                if (bishopQueenOnDiagonals(king, yStep, yStep)) return true;
+            }
+        }
+        return false;
+    }
+    boolean bishopQueenOnDiagonals(ChessPiece king, int xStep, int yStep) {
+        for (int lookX = king.getX(), lookY = king.getY();  lookY > 0 && lookY < Board.NUM_ROWS; lookX += xStep, lookY += yStep) {
+            Optional<ChessPiece> piece = getChessPiece(lookX, lookY);
+            // Ignore blank squares
+            if (piece.isEmpty()) continue;
+
+            ChessPiece chessPiece = piece.get();
+
+            // Your own pieces block checks
+            if (chessPiece.color == king.color) return false;
+
+            // If the piece is a rook or queen then the king is in check
+            return (chessPiece instanceof Bishop || chessPiece instanceof Queen);
+        }
+        return false;
+    }
+    boolean knightCheck(ChessPiece king) {
+        // NOTE: this is {x,y} form
+        int[][] positionsKnightAttack = new int[][] {
+                // Down
+                {1, 2},
+                {-1, 2},
+                // Right
+                {2, 1},
+                {2, -1},
+                // Up
+                {1, -2},
+                {-1, -2},
+                // Left
+                {-2, 1},
+                {-2, -1},
+        };
+        for (int[] indiciesOfAttack : positionsKnightAttack) {
+            Optional<ChessPiece> piece = getChessPiece(king.getX() + indiciesOfAttack[0], king.getY() + indiciesOfAttack[1]);
+            if (piece.isEmpty()) continue;
+            ChessPiece chessPiece = piece.get();
+
+            // The king is in check if it can be attacked by a knight of the opposite colour
+            if (chessPiece instanceof Knight && chessPiece.color != this.color) return true;
+        }
+        return false;
     }
 }
 

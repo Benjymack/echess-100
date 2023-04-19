@@ -20,7 +20,7 @@ public class Main {
         // Set up for main game loop
         final double FRAMES_PER_SECOND = 30;
         final long MILLIES_BETWEEN_FRAMES = Math.round(1000. / FRAMES_PER_SECOND);
-        double START_TIME = System.currentTimeMillis();
+
         final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 
         executorService.scheduleAtFixedRate(
