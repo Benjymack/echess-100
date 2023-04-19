@@ -211,7 +211,7 @@ public class Board {
             ChessPiece chessPiece = piece.get();
 
             // The king is in check if it can be attacked by a knight of the opposite colour
-            if (chessPiece instanceof Knight && chessPiece.color != this.color) return true;
+            if (chessPiece instanceof Knight && chessPiece.color != king.color) return true;
         }
         return false;
     }
