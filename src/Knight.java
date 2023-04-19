@@ -1,4 +1,3 @@
-import java.awt.*;
 import java.util.ArrayList;
 
 public class Knight extends ChessPiece {
@@ -47,11 +46,25 @@ public class Knight extends ChessPiece {
 
     @Override
     public boolean moveOk(Square[][] square, int oldX, int oldY, int newX, int newY) {
-        return false;
+        int dx = Math.abs(newX - oldX);
+        int dy = Math.abs(newY - oldY);
+
+        if ((dx == 1 && dy == 2) || (dx == 2 && dy == 1)) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
     @Override
     public char getFenRepresentation() {
         return (this.color == ChessColor.BLACK) ? 'n' : 'N';
     }
+
+    @Override
+    public void drawHighlightedSquares(Square[][] square, int pieceX, int pieceY) {
+
+    }
+
 
 }

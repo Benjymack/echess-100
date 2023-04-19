@@ -1,11 +1,12 @@
 import ecs100.UI;
-import java.util.HashMap;
+
 import java.awt.*;
 import java.util.Optional;
 
 public class Board {
     static Color darkSquareColor = new Color(119, 149, 86);
     static Color lightSquareColor = new Color(235, 236, 208);
+    static Color selectedSquareColor = new Color(255, 253, 150, 255);
     public Square[][] board;
     private String boardState;
 
@@ -150,6 +151,7 @@ public class Board {
         int newY = (int) Math.floor(mouseY / SQUARE_SIZE);
         int oldX = selected.getX();
         int oldY = selected.getY();
+        selected.drawHighlightedSquares(board, oldX, oldY);
         return selected.moveOk(board, oldX, oldY, newX, newY);
     }
 
@@ -267,6 +269,10 @@ public class Board {
         return boardState;
     }
 
+    public Square[][] getSquare(){
+        return board;
+    }
+
 }
 
 class Square {
@@ -293,6 +299,13 @@ class Square {
         UI.fillRect(x * squareSize, y * squareSize, squareSize, squareSize);
 
         // Draw piece, highlighted if it matches arg
+        piece.ifPresent(ChessPiece::draw);
+    }
+
+    public void drawHighlight(){
+        UI.setColor(Board.selectedSquareColor);
+
+        UI.fillRect(x * squareSize, y * squareSize, squareSize, squareSize);
         piece.ifPresent(ChessPiece::draw);
     }
 }

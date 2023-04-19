@@ -24,7 +24,6 @@ public class MouseListener {
 
         if (selectedPiece.isPresent() && currentBoard.getChessPieceFromMouseSquare(x, y).isEmpty()) {
             System.out.println(currentBoard.testMovement(selectedPiece.get(), x, y));
-            System.out.println("this would make it move");
         }
         else {
             // Unhighlight previously selected piece
@@ -32,6 +31,7 @@ public class MouseListener {
             selectedPiece = currentBoard.getChessPieceFromMouseSquare(x, y);
             // Highlight currently selected piece
             selectedPiece.ifPresent(chessPiece -> chessPiece.setHighlighted(true));
+            selectedPiece.ifPresent(Board -> Board.drawHighlightedSquares(currentBoard.getSquare(), selectedPiece.get().getX(), selectedPiece.get().getY()));
         }
     }
 }

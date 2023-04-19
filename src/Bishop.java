@@ -1,4 +1,3 @@
-import java.awt.*;
 import java.util.ArrayList;
 
 public class Bishop extends ChessPiece {
@@ -35,13 +34,44 @@ public class Bishop extends ChessPiece {
         setPolygons(polygons);
     }
 
+    /*Really terrible bishop moving rules. Probably very ineffecient. lmao*/
     @Override
     public boolean moveOk(Square[][] square, int oldX, int oldY, int newX, int newY) {
-        return false;
+        boolean moveOk = false;
+        for (int i_X = oldX, i_Y = oldY; i_X >=0 && i_X <= 8 && i_Y >= 0 && i_Y <= 8; ++i_X, ++i_Y){
+            if(i_Y == newY && i_X == newX){
+                moveOk = true;
+                return moveOk;
+            }
+        }
+        for (int i_X = oldX, i_Y = oldY; i_X >=0 && i_X <= 8 && i_Y >= 0 && i_Y <= 8; --i_X, --i_Y){
+            if(i_Y == newY && i_X == newX){
+                moveOk = true;
+                return moveOk;
+            }
+        }
+        for (int i_X = oldX, i_Y = oldY; i_X >=0 && i_X <= 8 && i_Y >= 0 && i_Y <= 8; ++i_X, --i_Y){
+            if(i_Y == newY && i_X == newX){
+                moveOk = true;
+                return moveOk;
+            }
+        }
+        for (int i_X = oldX, i_Y = oldY; i_X >=0 && i_X <= 8 && i_Y >= 0 && i_Y <= 8; --i_X, ++i_Y){
+            if(i_Y == newY && i_X == newX){
+                moveOk = true;
+                return moveOk;
+            }
+        }
+        return moveOk;
     }
     @Override
     public char getFenRepresentation() {
         return (this.color == ChessColor.BLACK) ? 'b' : 'B';
+    }
+
+    @Override
+    public void drawHighlightedSquares(Square[][] square, int pieceX, int pieceY) {
+
     }
 
 }

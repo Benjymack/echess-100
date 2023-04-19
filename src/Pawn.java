@@ -1,7 +1,7 @@
-import java.awt.Color;
 import java.util.ArrayList;
 
 public class Pawn extends ChessPiece {
+    private boolean firstMovement = true;
     public Pawn(int x, int y, ChessColor color) {
         super(x, y, color);
         this.asciiCharacter = (this.color == ChessColor.BLACK) ? '♟' : '♙';
@@ -38,11 +38,34 @@ public class Pawn extends ChessPiece {
 
     @Override
     public boolean moveOk(Square[][] square, int oldX, int oldY, int newX, int newY) {
+        int dy = Math.abs(newY - oldY);
+        if (firstMovement){
+            if (dy <= 2){
+                this.firstMovement = false;
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        else if (!firstMovement){
+            if (dy == 1){
+                return true;
+            }
+        }
+        else {
+            return false;
+        }
         return false;
     }
     @Override
     public char getFenRepresentation() {
         return (this.color == ChessColor.BLACK) ? 'p' : 'P';
+    }
+
+    @Override
+    public void drawHighlightedSquares(Square[][] square, int pieceX, int pieceY) {
+
     }
 
 }

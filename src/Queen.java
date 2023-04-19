@@ -1,4 +1,3 @@
-import java.awt.*;
 import java.util.ArrayList;
 
 public class Queen extends ChessPiece {
@@ -36,12 +35,40 @@ public class Queen extends ChessPiece {
 
     @Override
     public boolean moveOk(Square[][] square, int oldX, int oldY, int newX, int newY) {
+        if (oldX == newX || oldY == newY){
+            return true;
+        }
+        for (int i_X = oldX, i_Y = oldY; i_X >=0 && i_X <= 8 && i_Y >= 0 && i_Y <= 8; ++i_X, ++i_Y){
+            if(i_Y == newY && i_X == newX){
+                return true;
+            }
+        }
+        for (int i_X = oldX, i_Y = oldY; i_X >=0 && i_X <= 8 && i_Y >= 0 && i_Y <= 8; --i_X, --i_Y){
+            if(i_Y == newY && i_X == newX){
+                return true;
+            }
+        }
+        for (int i_X = oldX, i_Y = oldY; i_X >=0 && i_X <= 8 && i_Y >= 0 && i_Y <= 8; ++i_X, --i_Y){
+            if(i_Y == newY && i_X == newX){
+                return true;
+            }
+        }
+        for (int i_X = oldX, i_Y = oldY; i_X >=0 && i_X <= 8 && i_Y >= 0 && i_Y <= 8; --i_X, ++i_Y){
+            if(i_Y == newY && i_X == newX){
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public char getFenRepresentation() {
         return (this.color == ChessColor.BLACK) ? 'q' : 'Q';
+    }
+
+    @Override
+    public void drawHighlightedSquares(Square[][] square, int pieceX, int pieceY) {
+
     }
 }
 

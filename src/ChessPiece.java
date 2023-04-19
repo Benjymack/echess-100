@@ -116,5 +116,7 @@ public abstract class ChessPiece {
     }
     public abstract boolean moveOk(Square[][] square, int oldX, int oldY, int newX, int newY);
     public abstract char getFenRepresentation();
+
+    public abstract void drawHighlightedSquares(Square[][] square, int pieceX, int pieceY);
 }
 

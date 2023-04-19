@@ -49,4 +49,24 @@ public class Rook extends ChessPiece {
         return (this.color == ChessColor.BLACK) ? 'r' : 'R';
     }
 
+    @Override
+    public void drawHighlightedSquares(Square[][] square, int pieceX, int pieceY) {
+        //going right
+        for (int i = pieceX; i <= 7; ++i){
+            square[pieceY][i].drawHighlight();
+        }
+        //going left
+        for (int i = pieceX; i >= 0; --i){
+            square[pieceY][i].drawHighlight();
+        }
+        //going down
+        for (int i = pieceY; i <= 7; ++i){
+            square[i][pieceX].drawHighlight();
+        }
+        //going up
+        for (int i = pieceY; i >= 0; --i){
+            square[i][pieceX].drawHighlight();
+        }
+    }
+
 }
