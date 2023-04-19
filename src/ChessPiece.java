@@ -12,8 +12,8 @@ public abstract class ChessPiece {
     private static final Color LIGHT_COLOR = Color.white;
     private static final Color HIGHLIGHT_COLOR = Color.decode("#ffc90e");
 
-    protected Color outline;
     protected final Color fill;
+    protected Color outline;
     private boolean highlighted = false;
 
     public char asciiCharacter;
@@ -28,11 +28,11 @@ public abstract class ChessPiece {
 
         // Set outline and fill depending on piece colour
         if (color.equals(ChessColor.BLACK)) {
-            outline = LIGHT_COLOR;
-            fill = DARK_COLOR;
+            this.outline = LIGHT_COLOR;
+            this.fill = DARK_COLOR;
         } else {
-            outline = DARK_COLOR;
-            fill = LIGHT_COLOR;
+            this.outline = DARK_COLOR;
+            this.fill = LIGHT_COLOR;
         }
     }
 
@@ -85,7 +85,7 @@ public abstract class ChessPiece {
 
         // Change the polygons to use HIGHLIGHT_COLOR
         for (Polygon polygon: polygons) {
-            polygon.outline = (highlighted) ? HIGHLIGHT_COLOR : outline;
+            polygon.outline = (highlighted) ? HIGHLIGHT_COLOR : this.outline;
         }
     }
 
@@ -115,5 +115,6 @@ public abstract class ChessPiece {
          size = new_size;
     }
     public abstract boolean moveOk(Square[][] square, int oldX, int oldY, int newX, int newY);
+    public abstract char getFenRepresentation();
 }
 

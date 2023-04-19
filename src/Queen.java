@@ -38,5 +38,10 @@ public class Queen extends ChessPiece {
     public boolean moveOk(Square[][] square, int oldX, int oldY, int newX, int newY) {
         return false;
     }
+
+    @Override
+    public char getFenRepresentation() {
+        return (this.color == ChessColor.BLACK) ? 'q' : 'Q';
+    }
 }
 

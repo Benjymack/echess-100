@@ -49,5 +49,9 @@ public class Knight extends ChessPiece {
     public boolean moveOk(Square[][] square, int oldX, int oldY, int newX, int newY) {
         return false;
     }
+    @Override
+    public char getFenRepresentation() {
+        return (this.color == ChessColor.BLACK) ? 'n' : 'N';
+    }
 
 }

@@ -30,6 +30,39 @@ public class Board {
             }
         }
         setFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
+        System.out.println(this.FENFromBoard());
+    }
+
+    String FENFromBoard() {
+        String[] fenComponents = new String[NUM_ROWS];
+        int numberOfRows = 0;
+        for (Square[] row : this.board) {
+            int numBlankSquares = 0;
+            // Null issues :)
+            fenComponents[numberOfRows] = "";
+            for (Square square : row) {
+
+                if (square.piece.isEmpty()) {
+                    numBlankSquares++;
+                    continue;
+                }
+
+                if (numBlankSquares > 0) {
+                    fenComponents[numberOfRows] += numBlankSquares;
+                    numBlankSquares = 0;
+                }
+
+                ChessPiece piece = square.piece.get();
+
+                fenComponents[numberOfRows] += piece.getFenRepresentation();
+            }
+            if (numBlankSquares > 0) {
+                fenComponents[numberOfRows] += numBlankSquares;
+            }
+            numberOfRows++;
+        }
+
+        return String.join("/", fenComponents);
     }
 
     /**

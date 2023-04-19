@@ -44,4 +44,9 @@ public class Rook extends ChessPiece {
         return moveOk;
     }
 
+    @Override
+    public char getFenRepresentation() {
+        return (this.color == ChessColor.BLACK) ? 'r' : 'R';
+    }
+
 }
