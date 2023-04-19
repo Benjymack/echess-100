@@ -33,5 +33,10 @@ public class Queen extends ChessPiece {
         );
         setPolygons(polygons);
     }
+
+    @Override
+    public boolean moveOk(Square[][] square, int oldX, int oldY, int newX, int newY) {
+        return false;
+    }
 }
 

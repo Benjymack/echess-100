@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.util.ArrayList;
 
-public class ChessPiece {
+public abstract class ChessPiece {
     private static double size = 20;
     protected final ChessColor color;
     private int x;
@@ -114,5 +114,6 @@ public class ChessPiece {
         else
          size = new_size;
     }
+    public abstract boolean moveOk(Square[][] square, int oldX, int oldY, int newX, int newY);
 }
 

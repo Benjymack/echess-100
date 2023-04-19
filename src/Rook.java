@@ -1,4 +1,3 @@
-import java.awt.*;
 import java.util.ArrayList;
 
 public class Rook extends ChessPiece {
@@ -32,4 +31,17 @@ public class Rook extends ChessPiece {
 
         setPolygons(polygons);
     }
+
+    @Override //goes Y and then X
+    /*Probably replace the if statement with a for loop in order to check if there is a piece in the way*/
+    public boolean moveOk(Square[][] square, int oldX, int oldY, int newX, int newY) {
+        /*Square newPos = square[newY][newX];*/
+        boolean moveOk = false;
+        if (oldX == newX || oldY == newY){
+            moveOk = true;
+        }
+
+        return moveOk;
+    }
+
 }

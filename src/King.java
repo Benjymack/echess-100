@@ -49,5 +49,8 @@ public class King extends ChessPiece {
         }
     }
 
-
+    @Override
+    public boolean moveOk(Square[][] square, int oldX, int oldY, int newX, int newY) {
+        return false;
+    }
 }

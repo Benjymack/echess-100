@@ -112,6 +112,14 @@ public class Board {
         return Optional.empty();
     }
 
+    public boolean testMovement(ChessPiece selected, double mouseX, double mouseY){
+        int newX = (int) Math.floor(mouseX / SQUARE_SIZE);
+        int newY = (int) Math.floor(mouseY / SQUARE_SIZE);
+        int oldX = selected.getX();
+        int oldY = selected.getY();
+        return selected.moveOk(board, oldX, oldY, newX, newY);
+    }
+
 
     public boolean inCheck(ChessPiece king) {
         // TODO! should this be moved to a method of the board class?
