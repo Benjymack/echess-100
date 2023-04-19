@@ -57,7 +57,7 @@ public class Board {
     /**
      *
      * @param character One of  p, r, n, b, q, or k. May be uppercase or lowercase.
-     * @param x Rank fo the piece
+     * @param x Rank of the piece
      * @param y File of the piece
      * @return The ChessPiece as specified by the notation
      * @throws IllegalStateException Throws if an invalid char is given
