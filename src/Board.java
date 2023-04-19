@@ -7,8 +7,9 @@ public class Board {
     static Color darkSquareColor = new Color(119, 149, 86);
     static Color lightSquareColor = new Color(235, 236, 208);
     public Square[][] board;
+    private String boardState;
 
-    public static final int NUM_ROWS = 8;
+    private static final int NUM_ROWS = 8;
     private static final double BOARD_WIDTH = 400;
     private static final double SQUARE_SIZE = BOARD_WIDTH / NUM_ROWS;
 
@@ -28,19 +29,18 @@ public class Board {
                 this.board[y][x] = new Square(Optional.empty(), squareColor, x, y, SQUARE_SIZE);
             }
         }
-        boardFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
+        setFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
     }
 
     /**
      * Populates the board's squares with pieces according to Forsyth–Edwards Notation.
      * More info in <a href="https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation">Wikipedia</a>.
-     * @param FEN A string showing the board position in Forsyth–Edwards Notation
      */
-    public void boardFromFEN(String FEN) {
+    public void boardFromFEN() {
         int rank_num = 0;
         int file_num = 0;
 
-        for (String rank : FEN.split("/")) {
+        for (String rank : boardState.split("/")) {
             file_num = 0;
             for (Character info : rank.toCharArray()) {
                 if (Character.isDigit(info)) {
@@ -111,6 +111,7 @@ public class Board {
         }
         return Optional.empty();
     }
+
 
     public boolean inCheck(ChessPiece king) {
         // TODO! should this be moved to a method of the board class?
@@ -215,6 +216,16 @@ public class Board {
         }
         return false;
     }
+
+    public void setFEN(String fen) {
+        boardState = fen;
+        boardFromFEN();
+    }
+
+    public String getFEN() {
+        return boardState;
+    }
+
 }
 
 class Square {
