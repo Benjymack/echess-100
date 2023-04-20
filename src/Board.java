@@ -34,6 +34,10 @@ public class Board {
         System.out.println(this.FENFromBoard());
     }
 
+    /**
+     * Returns a String representation of the board using Forsyth–Edwards Notation.
+     * More info in <a href="https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation">Wikipedia</a>.
+     */
     String FENFromBoard() {
         String[] fenComponents = new String[NUM_ROWS];
         int numberOfRows = 0;
@@ -48,6 +52,7 @@ public class Board {
                     continue;
                 }
 
+                // Add the number of blank squares before a piece if there are any
                 if (numBlankSquares > 0) {
                     fenComponents[numberOfRows] += numBlankSquares;
                     numBlankSquares = 0;
@@ -57,6 +62,8 @@ public class Board {
 
                 fenComponents[numberOfRows] += piece.getFenRepresentation();
             }
+
+            // Add the number of blank squares before the end of a rank if there are any
             if (numBlankSquares > 0) {
                 fenComponents[numberOfRows] += numBlankSquares;
             }
@@ -275,37 +282,3 @@ public class Board {
 
 }
 
-class Square {
-    public Optional<ChessPiece> piece;
-    public Color color;
-    int x;
-    int y;
-    double squareSize;
-
-    public Square(Optional<ChessPiece> piece, Color color, int x, int y, double squareSize) {
-        this.piece = piece;
-        this.color = color;
-        this.x = x;
-        this.y = y;
-        this.squareSize = squareSize;
-    }
-
-    /**
-     * Draws this square. Additionally, draws piece if present.
-     */
-    public void draw() {
-        // Draw square
-        UI.setColor(color);
-        UI.fillRect(x * squareSize, y * squareSize, squareSize, squareSize);
-
-        // Draw piece, highlighted if it matches arg
-        piece.ifPresent(ChessPiece::draw);
-    }
-
-    public void drawHighlight(){
-        UI.setColor(Board.selectedSquareColor);
-
-        UI.fillRect(x * squareSize, y * squareSize, squareSize, squareSize);
-        piece.ifPresent(ChessPiece::draw);
-    }
-}
