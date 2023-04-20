@@ -18,7 +18,7 @@ public class Main {
         UI.setMouseListener(mouse::mousePosition);
 
         // Set up for main game loop
-        final double FRAMES_PER_SECOND = 30;
+        final double FRAMES_PER_SECOND = 20;
         final long MILLIES_BETWEEN_FRAMES = Math.round(1000. / FRAMES_PER_SECOND);
 
         final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
@@ -36,6 +36,7 @@ public class Main {
      * @param board The board used for the game
      */
     static void gameTick(Board board) {
+//        UI.clearGraphics();
         board.draw();
     }
 }

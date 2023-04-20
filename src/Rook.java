@@ -50,23 +50,25 @@ public class Rook extends ChessPiece {
     }
 
     @Override
-    public void drawHighlightedSquares(Square[][] square, int pieceX, int pieceY) {
-        //going right
-        for (int i = pieceX; i <= 7; ++i){
-            square[pieceY][i].drawHighlight();
+    public void drawHighlightedSquares(Square[][] squares, int pieceX, int pieceY) {
+        for (int i = 0; i < 8; i++) {
+            // Going Right
+            makeMoveableTo(squares, pieceX + i, pieceY);
+            // Going Left
+            makeMoveableTo(squares, pieceX - i, pieceY);
+            // Going Down
+            makeMoveableTo(squares, pieceX, pieceY + i);
+            // Going Up
+            makeMoveableTo(squares, pieceX, pieceY - i);
         }
-        //going left
-        for (int i = pieceX; i >= 0; --i){
-            square[pieceY][i].drawHighlight();
+    }
+    void makeMoveableTo(Square[][] squares, int x, int y) {
+        try {
+            squares[y][x].moveableTo = true;
+        } catch (IndexOutOfBoundsException ignored) {
+            ;
         }
-        //going down
-        for (int i = pieceY; i <= 7; ++i){
-            square[i][pieceX].drawHighlight();
-        }
-        //going up
-        for (int i = pieceY; i >= 0; --i){
-            square[i][pieceX].drawHighlight();
-        }
+
     }
 
 }
